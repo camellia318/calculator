@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+    <html lang="ja">
+      <head>
+        <meta charset="utf-8">
+        <style>
+          input { font-family: "ＭＳ Ｐゴシック", sans-serif; font-weight:600; font-size:x-large; }
+          table {text-align: right}
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>  
+        <link rel="stylesheet" href="main.css">
+        <title>電卓</title>
+      </head> 
+      <body>
+          <input type=text id=input1 size=13 style="text-align:right"><p>
+            <input type=button value="CE" onclick=clr()>
+            <input type=button value="CA" onclick=clrAll()>
+            <input type=button value=" = " onclick=equal()><p>
+            <input type=button value=" 1 " onclick=kazu("1")>
+            <input type=button value=" 2 " onclick=kazu("2")>
+            <input type=button value=" 3 " onclick=kazu("3")>
+            <input type=button value=" + " onclick=kigou("+")><br>
+            <input type=button value=" 4 " onclick=kazu("4")>
+            <input type=button value=" 5 " onclick=kazu("5")>
+            <input type=button value=" 6 " onclick=kazu("6")>
+            <input type=button value=" -  " onclick=kigou("-")><br>
+            <input type=button value=" 7 " onclick=kazu("7")>
+            <input type=button value=" 8 " onclick=kazu("8")>
+            <input type=button value=" 9 " onclick=kazu("9")>
+            <input type=button value=" × " onclick=kigou("×")><br>
+            <input type=button value="     0     "onclick=kazu("0")>
+            <input type=button value=" . " onclick=kazu(".")>
+            <input type=button value=" ÷ " onclick=kigou("÷")><p>
+            
+       <script>
+         var input1p = document.getElementById('input1');
+         var operator;
+         var input;
+         var input2;
+         var shousuu = 0;
+         var toBeErased = 0;
+         
+         function clr(){
+           input1p.value = "";
+           shousuu = 0;
+         }
+         
+         function clrAll(){
+           input1p.value = "";
+           input2 = "";
+           operator = "";
+           shousuu = 0;
+         }
+         
+         function kazu(n){
+           if(toBeErased == 1){
+             toBeErased = 0;
+             input1p.value = "";
+           }
+           if(n == '.') {
+             if(shousuu == 1) return;
+             if(input1p.value =="")input1p.value = "0.";
+             else input1p.value = input1p.value + ".";
+             shousuu = 1;
+             return;
+           }
+           if(input1p.value == "0")input1p.value = "";
+           input1p.value = input1p.value + n;
+         }
+         
+         function kigou(k){
+           if(operator != ""){equal();}
+           operator = k;
+           input2 = input1p.value;
+           toBeErased = 1;
+         }
+         
+         function equal(){
+           if(operator == "+") {
+             input1p.value = Number(input2) + Number(input1p.value);
+           }else if(operator == "-") {
+             input1p.value = Number(input2) - Number(input1p.value);
+           } else if(operator == "×") {
+             input1p.value = Number(input2) * Number(input1p.value);
+           } else if(operator == "÷") {
+             input1p.value = Number(input2) / Number(input1p.value);
+           }
+           operator = "=";
+           toBeErased = 1;
+         }
+       </script>
+       
+      </body>
+    </html>
